@@ -12,7 +12,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
     
     @RequestMapping("/employees/home")
-    public String getAllEmployees() {
+    public String getEmployeesHome() {
         return "Welcome to employee portal";
     }
 
