@@ -10,6 +10,11 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+    
+    @RequestMapping("/employees/home")
+    public String getAllEmployees() {
+        return "Welcome to employee portal";
+    }
 
     @RequestMapping("/employees")
     public List<Employee> getAllEmployees() {
