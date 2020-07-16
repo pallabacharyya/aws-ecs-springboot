@@ -224,6 +224,8 @@ Resources:
                   # ECS tasks to upload logs to CloudWatch
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
+                  - 'iam:CreateServiceLinkedRole'
+                  - 'iam:PutRolePolicy'
                 Resource: '*'
 
 Outputs:
