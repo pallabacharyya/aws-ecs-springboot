@@ -199,24 +199,32 @@ Resources:
       Actions:
         - TargetGroupArn: !Ref TargetGroup
           Type: forward
-          
-  EcsServiceLinkedRole:
-    Type: "AWS::IAM::ServiceLinkedRole"
-    Properties:
-      AWSServiceName: "ecs.amazonaws.com"
-      Description: "Role to enable Amazon ECS to manage your cluster."
 
   ECSTaskExecutionRole:
     Type: AWS::IAM::Role
-    Properties:      
+    Properties:
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
             Principal:
-              Service: ecs-tasks.amazonaws.com
-            Action: 'sts:AssumeRole'
-      ManagedPolicyArns:
-        - 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy'
+              Service: [ecs-tasks.amazonaws.com]
+            Action: ['sts:AssumeRole']
+      Path: /
+      Policies:
+        - PolicyName: AmazonECSTaskExecutionRolePolicy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  # ECS Tasks to download images from ECR
+                  - 'ecr:GetAuthorizationToken'
+                  - 'ecr:BatchCheckLayerAvailability'
+                  - 'ecr:GetDownloadUrlForLayer'
+                  - 'ecr:BatchGetImage'
+                  # ECS tasks to upload logs to CloudWatch
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
 
 Outputs:
 
@@ -224,4 +232,4 @@ Outputs:
     Description: Employee API Endpoint
     Value: !Join ['', ['http://', !GetAtt LoadBalancer.DNSName, '/employees']]
     Export:
-      Name: 'EmployeePal123ApiEndpoint'
+      Name: 'Employee1ApiEndpoint'
