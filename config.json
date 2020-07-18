@@ -1,6 +1,6 @@
 {
   "Parameters": {
-    "DockerImageRepository": "employee-ecs-image",
+    "DockerImageRepository": "employee-pal789-image",
     "ImageTag": "latest"
   }
 }
