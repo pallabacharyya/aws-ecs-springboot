@@ -208,8 +208,7 @@ Resources:
 
   ECSTaskExecutionRole:
     Type: AWS::IAM::Role
-    Properties:
-      RoleName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ExecutionRole']]
+    Properties:      
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
